@@ -1,0 +1,25 @@
+- name: add sing-box GPG key
+  get_url:
+    url: https://sing-box.app/gpg.key
+    dest: /etc/apt/keyrings/sagernet.asc
+    mode: 0644
+
+- name: add the sing-box repo
+  apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/sagernet.asc] https://deb.sagernet.org/ * *"
+    state: present
+
+- name: update package cache on debian-based distros
+  apt:
+    update_cache: yes
+  changed_when: false
+
+- name: install required packages
+  apt: 
+    name:
+      - socat
+      - unzip
+      - curl
+      - wget
+      - sing-box
+    state: latest

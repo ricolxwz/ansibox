@@ -1,0 +1,4 @@
+- name: "install vmess"
+  hosts: ansibox
+  roles:
+    - base
